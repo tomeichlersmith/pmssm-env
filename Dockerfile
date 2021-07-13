@@ -29,8 +29,8 @@ RUN apt-get update &&\
       tqdm 
 
 RUN mkdir src &&\
-    ${__wget} https://root.cern/download/root_v6.12.06.source.tar.gz |\
-     ${__untar} &&\
+    wget -q -O - https://root.cern/download/root_v6.12.06.source.tar.gz |\ 
+      tar -xz --strip-components=1 --directory src &&\
     cmake \
       -Droofit=ON \
       -Dminuit2=ON \
