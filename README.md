@@ -4,11 +4,11 @@
     <a href="http://perso.crans.org/besson/LICENSE.html" alt="GPLv3 license">
         <img src="https://img.shields.io/badge/License-GPLv3-blue.svg" />
     </a>
-    <a href="https://github.com/LDMX-Software/docker/actions" alt="Actions">
-        <img src="https://github.com/LDMX-Software/docker/workflows/Build/badge.svg" />
+    <a href="https://github.com/tomeichlersmith/pmssm-env/actions" alt="Actions">
+        <img src="https://github.com/tomeichlersmith/pmssm-env/workflows/Build/badge.svg" />
     </a>
-    <a href="https://hub.docker.com/r/ldmx/dev" alt="DockerHub">
-        <img src="https://img.shields.io/github/v/release/LDMX-Software/docker" />
+    <a href="https://hub.docker.com/r/tomeichlersmith/pmssm-env" alt="DockerHub">
+        <img src="https://img.shields.io/github/v/release/tomeichlersmith/pmssm-env" />
     </a>
 </p>
 
