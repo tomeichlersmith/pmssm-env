@@ -47,8 +47,8 @@ RUN python -m pip install --upgrade --no-cache-dir \
       uproot \
       root_numpy \
 
-RUN git clone https://github.com/jennetd/pMSSM_McMC &&\
-    cd pMSSM_McMC/packages &&\
+COPY ./pMSSM_McMC /
+RUN cd pMSSM_McMC/packages &&\
     tar -zxf FeynHiggs-2.18.0-patched.tar.gz &&\
     cd FeynHiggs-2.18.0 &&\
     ./configure &&\
