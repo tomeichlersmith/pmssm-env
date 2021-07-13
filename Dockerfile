@@ -20,7 +20,7 @@ RUN apt-get update &&\
       python2.7 \
       python-pip &&\
     apt-get clean all &&\
-    python -m pip install --upgrade --no-cache-dir &&\
+    python -m pip install --upgrade --no-cache-dir \
       numpy \
       scipy \
       matplotlib \
