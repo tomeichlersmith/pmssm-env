@@ -38,6 +38,8 @@ jobs:
     - 
       name: Get Build Context
       uses: actions/checkout@v2
+      with:
+        submodules: recursive
     -
       name: Determine Image Tags
       id: generate_tag
@@ -77,3 +79,4 @@ jobs:
       with:
         push: true
         tags: ${{ steps.generate_tag.outputs.push_tags }}
+        context: .
