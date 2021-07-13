@@ -3,7 +3,7 @@ FROM ubuntu:18.04
 RUN apt-get update &&\
     apt-get install -y \
       build-essential \
-      libssl-devl \
+      libssl-dev \
       gcc \
       g++ \
       make \
