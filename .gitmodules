@@ -1,0 +1,3 @@
+[submodule "pMSSM_McMC"]
+	path = pMSSM_McMC
+	url = git@github.com:jennetd/pMSSM_McMC.git
