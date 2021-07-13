@@ -1,5 +1,18 @@
 # pmssm-env
 
+<p align="center">
+    <a href="http://perso.crans.org/besson/LICENSE.html" alt="GPLv3 license">
+        <img src="https://img.shields.io/badge/License-GPLv3-blue.svg" />
+    </a>
+    <a href="https://github.com/LDMX-Software/docker/actions" alt="Actions">
+        <img src="https://github.com/LDMX-Software/docker/workflows/Build/badge.svg" />
+    </a>
+    <a href="https://hub.docker.com/r/ldmx/dev" alt="DockerHub">
+        <img src="https://img.shields.io/github/v/release/LDMX-Software/docker" />
+    </a>
+</p>
+
+
 Build context for DockerHub repository [tomeichlersmith/pmssm-env](https://hub.docker.com/repository/docker/tomeichlersmith/pmssm-env).
 
 I offered to help @JHiltbran include some helper python packages in this container image since I have experience with developing these types of images.
