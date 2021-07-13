@@ -25,8 +25,6 @@ RUN apt-get update &&\
       scipy \
       matplotlib \
       pandas \
-      uproot \
-      root_numpy \
       cmake \
       tqdm 
 
@@ -44,7 +42,10 @@ RUN mkdir src &&\
     rm -rf build src &&\
     ln -s /usr/local/bin/thisroot.sh /etc/profile.d/thisroot.sh
 
-RUN python -m pip install --upgrade --no-cache-dir pyslha
+RUN python -m pip install --upgrade --no-cache-dir \
+      pyslha \
+      uproot \
+      root_numpy \
 
 RUN git clone https://github.com/jennetd/pMSSM_McMC &&\
     cd pMSSM_McMC/packages &&\
