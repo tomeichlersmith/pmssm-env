@@ -20,7 +20,7 @@ RUN apt-get update &&\
       python2.7 \
       python-pip &&\
     apt-get clean all &&\
-    python pip install --upgrade &&\
+    python -m pip install --upgrade --no-cache-dir &&\
       numpy \
       scipy \
       matplotlib \
@@ -42,9 +42,9 @@ RUN mkdir src &&\
       -S src \
     && cmake --build build --target install &&\
     rm -rf build src &&\
-    echo "source /usr/local/bin/thisroot.sh" >> $HOME/.bashrc
+    ln -s /usr/local/bin/thisroot.sh /etc/profile.d/thisroot.sh
 
-RUN python pip install --upgrade pyslha
+RUN python -m pip install --upgrade --no-cache-dir pyslha
 
 RUN git clone https://github.com/jennetd/pMSSM_McMC &&\
     cd pMSSM_McMC/packages &&\
