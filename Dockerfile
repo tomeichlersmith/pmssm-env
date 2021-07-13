@@ -41,9 +41,8 @@ RUN mkdir src &&\
       -B build \
       -S src \
     && cmake --build build --target install &&\
-    rm -rf build src
-ENV LD_LIBRARY_PATH /usr/local/lib
-ENV PYTHONPATH /usr/local/lib
+    rm -rf build src &&\
+    echo "source /usr/local/bin/thisroot.sh" >> $HOME/.bashrc
 
 RUN python pip install --upgrade pyslha
 
