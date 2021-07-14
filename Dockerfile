@@ -91,4 +91,12 @@ RUN tar -zxvf micromegas_5.2.4.tgz &&\
 WORKDIR /pMSSM_McMC
 RUN chmod a+rwx -R packages/
 
+# entrypoint can't be over-written,
+#   we always go into this script to setup the environment
+COPY ./entry.sh /usr/local/entry.sh
+RUN chmod a+x /usr/local/entry.sh
+ENTRYPOINT ["/usr/local/entry.sh"]
+
+# CMD can be over-written when the run command is provided with
+#   any arguments after the image tag
 CMD ["/bin/bash"]
