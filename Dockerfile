@@ -51,46 +51,44 @@
 FROM tomeichlersmith/pmssm-env:sha-5522744c
 
 COPY ./pMSSM_McMC /pMSSM_McMC
-RUN cd pMSSM_McMC/packages &&\
-    echo ::group::FeynHiggs-2.18.0-patched &&\
-    tar -zxf FeynHiggs-2.18.0-patched.tar.gz &&\
+WORKDIR /pMSSM_McMC/packages
+
+RUN tar -zxf FeynHiggs-2.18.0-patched.tar.gz &&\
     cd FeynHiggs-2.18.0 &&\
     ./configure &&\
-    make && make install &&\
-    cd .. &&\
-    echo ::endgroup:: && echo ::group::SPheno-4.0.4 &&\
-    tar -zxvf SPheno-4.0.4.tar.gz &&\
+    make && make install
+
+RUN tar -zxvf SPheno-4.0.4.tar.gz &&\
     cd SPheno-4.0.4 &&\
     sed -i "/^F90/c\F90=gfortran" Makefile &&\
-    make &&\
-    cd .. &&\
-    echo ::endgroup:: && echo ::group::superiso_v4.0 &&\
-    tar -zxf superiso_v4.0.tgz &&\
+    make
+
+RUN tar -zxf superiso_v4.0.tgz &&\
     cd superiso_v4.0 &&\
     cp ../slha.c . &&\
     cp ../slha_chi2_reduced.c . &&\
     make && make slha && make slha_chi2 &&\
-    make slha_chi2_reduced &&\
-    cd .. &&\
-    echo ::endgroup:: && echo ::group::GM2Calc-1.7.3 &&\
-    tar -zxf v1.7.3.tar.gz &&\
+    make slha_chi2_reduced
+
+RUN tar -zxf v1.7.3.tar.gz &&\
     cmake -S GM2Calc-1.7.3 -B GM2Calc-1.7.3/build &&\
-    cmake --build GM2Calc-1.7.3/build &&\
-    echo ::endgroup:: && echo ::group::higgsbounds &&\
-    tar -zxf higgsbounds.tar.gz &&\
-    mkdir build && cd build &&\
-    cmake -B higgsbounds/build -S higgsbounds \
+    cmake --build GM2Calc-1.7.3/build
+
+RUN tar -zxf higgsbounds.tar.gz &&\
+    cmake -S higgsbounds -B higgsbounds/build \
       -DFeynHiggs_ROOT=../../FeynHiggs-2.16.1 -DLEP_CHISQ=ON &&\
-    cmake --build higgsbounds/build  &&\
-    echo ::endgroup:: && echo ::group::higgssignals &&\
-    tar -zxf higgssignals.tar.gz higgssignals &&\
+    cmake --build higgsbounds/build
+
+RUN tar -zxf higgssignals.tar.gz &&\
     cmake -S higgssignals -B higgssignals/build \
       -DFeynHiggs_ROOT=../../FeynHiggs-2.16.1 &&\
-    cmake --build higgssignals/build &&\
-    echo ::endgroup:: && echo ::group::micromegas_5.2.4 &&\
-    tar -zxvf micromegas_5.2.4.tgz &&\
+    cmake --build higgssignals/build
+
+RUN tar -zxvf micromegas_5.2.4.tgz &&\
     cp main.c micromegas_5.2.4/MSSM/main.c && cd micromegas_5.2.4 &&\
-    make && cd MSSM && make main=main.c &&\
-    cd .. &&\
-    echo ::endgroup:: &&\
-    chmod a+rwx -R /pMSSM_McMC/packages/
+    make && cd MSSM && make main=main.c
+
+WORKDIR /pMSSM_McMC
+RUN chmod a+rwx -R packages/
+
+CMD ["/bin/bash"]
