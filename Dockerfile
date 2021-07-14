@@ -47,41 +47,41 @@ RUN python -m pip install --upgrade --no-cache-dir \
       uproot \
       root_numpy
 
-#COPY ./pMSSM_McMC /
-#RUN cd pMSSM_McMC/packages &&\
-#    tar -zxf FeynHiggs-2.18.0-patched.tar.gz &&\
-#    cd FeynHiggs-2.18.0 &&\
-#    ./configure &&\
-#    make && make install &&\
-#    cd .. &&\
-#    tar -zxvf SPheno-4.0.4.tar.gz &&\
-#    cd SPheno-4.0.4 &&\
-#    sed -i "/^F90/c\F90=gfortran" Makefile &&\
-#    make &&\
-#    cd .. &&\
-#    tar -zxf superiso_v4.0.tgz &&\
-#    cd superiso_v4.0 &&\
-#    cp ../slha.c . &&\
-#    cp ../slha_chi2_reduced.c . &&\
-#    make && make slha && make slha_chi2 &&\
-#    make slha_chi2_reduced &&\
-#    cd .. &&\
-#    tar -zxf v1.7.3.tar.gz &&\
-#    cd GM2Calc-1.7.3 &&\
-#    mkdir build && cd build &&\
-#    cmake .. && make &&\
-#    cd .. &&\
-#    tar -zxf higgsbounds.tar.gz && cd higgsbounds &&\
-#    mkdir build && cd build &&\
-#    cmake .. -DFeynHiggs_ROOT=../../FeynHiggs-2.16.1 -DLEP_CHISQ=ON &&\
-#    make &&\
-#    cd .. &&\
-#    tar -zxf higgssignals.tar.gz && cd higgssignals &&\
-#    mkdir build && cd build &&\
-#    cmake .. -DFeynHiggs_ROOT=../../FeynHiggs-2.16.1 && make &&\
-#   cd .. &&\
-#   tar -zxvf micromegas_5.2.4.tgz &&\
-#    cp main.c micromegas_5.2.4/MSSM/main.c && cd micromegas_5.2.4 &&\
-#    make && cd MSSM && make main=main.c &&\
-#    cd .. &&\
-#    chmod a+rwx -R /pMSSM_McMC/packages/
+COPY ./pMSSM_McMC /
+RUN cd pMSSM_McMC/packages &&\
+    tar -zxf FeynHiggs-2.18.0-patched.tar.gz &&\
+    cd FeynHiggs-2.18.0 &&\
+    ./configure &&\
+    make && make install &&\
+    cd .. &&\
+    tar -zxvf SPheno-4.0.4.tar.gz &&\
+    cd SPheno-4.0.4 &&\
+    sed -i "/^F90/c\F90=gfortran" Makefile &&\
+    make &&\
+    cd .. &&\
+    tar -zxf superiso_v4.0.tgz &&\
+    cd superiso_v4.0 &&\
+    cp ../slha.c . &&\
+    cp ../slha_chi2_reduced.c . &&\
+    make && make slha && make slha_chi2 &&\
+    make slha_chi2_reduced &&\
+    cd .. &&\
+    tar -zxf v1.7.3.tar.gz &&\
+    cd GM2Calc-1.7.3 &&\
+    mkdir build && cd build &&\
+    cmake .. && make &&\
+    cd .. &&\
+    tar -zxf higgsbounds.tar.gz && cd higgsbounds &&\
+    mkdir build && cd build &&\
+    cmake .. -DFeynHiggs_ROOT=../../FeynHiggs-2.16.1 -DLEP_CHISQ=ON &&\
+    make &&\
+    cd .. &&\
+    tar -zxf higgssignals.tar.gz && cd higgssignals &&\
+    mkdir build && cd build &&\
+    cmake .. -DFeynHiggs_ROOT=../../FeynHiggs-2.16.1 && make &&\
+    cd .. &&\
+    tar -zxvf micromegas_5.2.4.tgz &&\
+    cp main.c micromegas_5.2.4/MSSM/main.c && cd micromegas_5.2.4 &&\
+    make && cd MSSM && make main=main.c &&\
+    cd .. &&\
+    chmod a+rwx -R /pMSSM_McMC/packages/
