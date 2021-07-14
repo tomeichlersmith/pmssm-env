@@ -13,7 +13,7 @@
 </p>
 
 
-Build context for DockerHub repository [tomeichlersmith/pmssm-env](https://hub.docker.com/repository/docker/tomeichlersmith/pmssm-env). This image is designed to run the code linked as a submodule [jennetd/pMSSM_McMC](https://github.com/jennetd/pMSSM_McMC).
+Build context for DockerHub repository [tomeichlersmith/pmssm-env](https://hub.docker.com/r/tomeichlersmith/pmssm-env). This image is designed to run the code linked as a submodule [jennetd/pMSSM_McMC](https://github.com/jennetd/pMSSM_McMC).
 
 ### Context for the Build Context
 I offered to help [@JHiltbrand](https://github.com/JHiltbrand) include some helper python packages in this container image since I have experience with developing these types of images.
