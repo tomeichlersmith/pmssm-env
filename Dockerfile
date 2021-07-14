@@ -72,23 +72,21 @@ RUN cd pMSSM_McMC/packages &&\
     make && make slha && make slha_chi2 &&\
     make slha_chi2_reduced &&\
     cd .. &&\
-    echo ::endgroup:: && echo ::group::v1.7.3 &&\
+    echo ::endgroup:: && echo ::group::GM2Calc-1.7.3 &&\
     tar -zxf v1.7.3.tar.gz &&\
-    cd GM2Calc-1.7.3 &&\
-    mkdir build && cd build &&\
-    cmake .. && make &&\
-    cd .. &&\
+    cmake -S GM2Calc-1.7.3 -B GM2Calc-1.7.3/build &&\
+    cmake --build GM2Calc-1.7.3/build &&\
     echo ::endgroup:: && echo ::group::higgsbounds &&\
-    tar -zxf higgsbounds.tar.gz && cd higgsbounds &&\
+    tar -zxf higgsbounds.tar.gz &&\
     mkdir build && cd build &&\
-    cmake .. -DFeynHiggs_ROOT=../../FeynHiggs-2.16.1 -DLEP_CHISQ=ON &&\
-    make &&\
-    cd .. &&\
+    cmake -B higgsbounds/build -S higgsbounds \
+      -DFeynHiggs_ROOT=../../FeynHiggs-2.16.1 -DLEP_CHISQ=ON &&\
+    cmake --build higgsbounds/build  &&\
     echo ::endgroup:: && echo ::group::higgssignals &&\
-    tar -zxf higgssignals.tar.gz && cd higgssignals &&\
-    mkdir build && cd build &&\
-    cmake .. -DFeynHiggs_ROOT=../../FeynHiggs-2.16.1 && make &&\
-    cd .. &&\
+    tar -zxf higgssignals.tar.gz higgssignals &&\
+    cmake -S higgssignals -B higgssignals/build \
+      -DFeynHiggs_ROOT=../../FeynHiggs-2.16.1 &&\
+    cmake --build higgssignals/build &&\
     echo ::endgroup:: && echo ::group::micromegas_5.2.4 &&\
     tar -zxvf micromegas_5.2.4.tgz &&\
     cp main.c micromegas_5.2.4/MSSM/main.c && cd micromegas_5.2.4 &&\
