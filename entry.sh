@@ -10,4 +10,4 @@ set -e
 
 source /usr/local/bin/thisroot.sh
 
-exec "$@"
+eval "$@"
