@@ -79,7 +79,7 @@ HELP
 
 __pmssm-env_run() {
   singularity run \
-    -B ${PMSSM_ENV_MOUNTS} \
+    ${PMSSM_ENV_MOUNTS:+"-B"} ${PMSSM_ENV_MOUNTS} \
     docker://tomeichlersmith/pmssm-env:${PMSSM_ENV_TAG} \
     $@
   return $?

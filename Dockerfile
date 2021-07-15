@@ -18,8 +18,9 @@ RUN apt-get update &&\
       libboost-all-dev \
       libeigen3-dev \
       python2.7 \
-      python-pip &&\
-    apt-get clean all &&\
+      python-pip \
+      python-tk \
+    && apt-get clean all &&\
     python -m pip install --upgrade --no-cache-dir \
       numpy \
       scipy \
