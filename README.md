@@ -16,7 +16,16 @@
 Build context for DockerHub repository [tomeichlersmith/pmssm-env](https://hub.docker.com/r/tomeichlersmith/pmssm-env). This image is designed to run the code linked as a submodule [jennetd/pMSSM_McMC](https://github.com/jennetd/pMSSM_McMC).
 
 ### Usage
+Interaction with the container has been enclosed in a helpful bash environment script `env.sh` which you can source.
 
+```bash
+source env.sh
+pmssm-env
+```
+
+The first time you run this `pmssm-env` command, it will need to download the container.
+
+### Under-the-Hood
 The entry-point for this container sets-up ROOT before running any provided commands, 
 so you can assume that ROOT has already been sourced. 
 Moreover, the default command defined is `/bin/bash`, 
