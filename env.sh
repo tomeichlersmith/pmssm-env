@@ -43,7 +43,7 @@ __pmssm-env_mount() {
     return 1
   fi
 
-  export PMSSM_ENV_MOUNTS="${PMSSM_ENV_MOUNTS}${PMSSM_ENV_MOUNTS:+,}$(cd "$1" && pwd -P)"
+  export PMSSM_ENV_MOUNTS="${PMSSM_ENV_MOUNTS}${PMSSM_ENV_MOUNTS:+,}$(cd "$1" && pwd -P)${2:+:}${2}"
   return 0
 }
 
