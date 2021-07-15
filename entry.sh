@@ -8,6 +8,7 @@ set -e
 #   running the command(s) we are given.
 ###############################################################################
 
+unset PYTHONHOME
 source /usr/local/bin/thisroot.sh
 
 eval "$@"
