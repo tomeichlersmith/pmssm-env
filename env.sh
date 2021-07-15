@@ -4,10 +4,18 @@
 # Setup the environment and define some helpful bash functions
 ###############################################################################
 
-export SINGULARITY_CACHEDIR=/export/scratch/users/$USER
+if [[ ! -d /export/scratch ]]; then
+  echo "WARNING: /export/scratch is unavailable."
+  echo "  You should define a large enough scratch directory with "
+  echo "    pmssm-env cache <dir>"
+else
+  export TMPDIR=/export/scratch
+  export SINGULARITY_CACHEDIR=/export/scratch/users/$USER
+fi
 __pmssm-env_cache() {
   if [[ -d "$1" ]]; then
     export SINGULARITY_CACHEDIR="$(cd $1 && pwd -P)"
+    export TMPDIR=${SINGULARITY_CACHEDIR}
   else
     echo "'$1' is not a directory."
     return 1
@@ -24,6 +32,18 @@ __pmssm-env_use() {
 __pmssm-env_config() {
   echo "SINGULARITY_CACHEDIR=${SINGULARITY_CACHEDIR}"
   echo "PMSSM_ENV_TAG=${PMSSM_ENV_TAG}"
+  echo "PMSSM_ENV_MOUNTS=${PMSSM_ENV_MOUNTS}"
+  return 0
+}
+
+export PMSSM_ENV_MOUNTS=""
+__pmssm-env_mount() {
+  if [[ ! -d $1 ]]; then
+    echo "$1 is not a directory!"
+    return 1
+  fi
+
+  export PMSSM_ENV_MOUNTS="${PMSSM_ENV_MOUNTS}${PMSSM_ENV_MOUNTS:+,}$(cd "$1" && pwd -P)"
   return 0
 }
 
@@ -49,6 +69,8 @@ __pmssm-env_help() {
       pmssm-env config
     cache   : set directory for caching the images
       pmssm-env cache <dir>
+    mount   : add a directory to mount to container while running
+      pmssm-env mount <dir>
     <other> : run the input command in the container
       pmssm-env <other> [<arguments> ...]
 HELP
@@ -57,7 +79,7 @@ HELP
 
 __pmssm-env_run() {
   singularity run \
-    -B $(pwd -P) \
+    -B ${PMSSM_ENV_MOUNTS} \
     docker://tomeichlersmith/pmssm-env:${PMSSM_ENV_TAG} \
     $@
   return $?
@@ -65,12 +87,12 @@ __pmssm-env_run() {
 
 pmssm-env() {
   case "$1" in
-    use|config|help|cache)
+    use|config|help|cache|mount)
       __pmssm-env_$1 ${@:2}
       return $?
       ;;
     *)
-      __pmssm-env_run ${@:2}
+      __pmssm-env_run ${@}
       return $?
       ;;
   esac
