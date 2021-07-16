@@ -53,7 +53,7 @@ jobs:
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             # if pushing a git tag ==> get the git tag for the docker tag
             _tag=${GITHUB_REF#refs/tags/}
-            echo $(wget -q https://registry.hub.docker.com/v1/repositories/${DOCKER_REPO}/tags -O - | grep ${GITHUB_SHA::8})
+            echo "Checking for already built commit ${GITHUB_SHA::8}"
             if wget -q https://registry.hub.docker.com/v1/repositories/${DOCKER_REPO}/tags -O - | grep -q ${GITHUB_SHA::8}; then
               _retag=sha-${GITHUB_SHA::8}
             fi
