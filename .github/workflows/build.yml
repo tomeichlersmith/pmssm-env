@@ -53,16 +53,8 @@ jobs:
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             # if pushing a git tag ==> get the git tag for the docker tag
             _tag=${GITHUB_REF#refs/tags/}
-            #line-by-line description
-            # download tag json
-            # strip unnecessary information
-            # break tags into their own lines
-            # pick out tags using : as separator
-            _remote_options=($(wget -q https://registry.hub.docker.com/v1/repositories/${DOCKER_REPO}/tags -O -  |\
-                sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' |\
-                tr '}' '\n'  |\
-                awk -F: '{print $3}'))
-            if [[ ${_remote_options[@]} =~ (^|[[:space::]])sha-${GITHUB_SHA::8}($|[[::space::]]) ]]; then
+            echo $(wget -q https://registry.hub.docker.com/v1/repositories/${DOCKER_REPO}/tags -O - | grep ${GITHUB_SHA::8})
+            if wget -q https://registry.hub.docker.com/v1/repositories/${DOCKER_REPO}/tags -O - | grep -q ${GITHUB_SHA::8}; then
               _retag=sha-${GITHUB_SHA::8}
             fi
           elif [[ $GITHUB_REF == refs/heads/* ]]; then
