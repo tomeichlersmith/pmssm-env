@@ -47,6 +47,20 @@ __pmssm-env_mount() {
   return 0
 }
 
+__pmssm-env_source() {
+  local _file_listing_commands="$1"
+  local _old_pwd=$OLDPWD
+  cd $(dirname $_file_listing_commands)
+  while read _subcmd; do
+    if [[ -z "$_subcmd" ]] || [[ "$_subcmd" = \#* ]]; then
+      continue
+    fi
+    pmssm-env $_subcmd
+  done < $(basename $_file_listing_commands)
+  cd - &> /dev/null
+  export OLDPWD=$_old_pwd
+}
+
 __pmssm-env_run() {
   singularity run \
     ${PMSSM_ENV_MOUNTS:+"-B"} ${PMSSM_ENV_MOUNTS} \
@@ -79,15 +93,18 @@ __pmssm-env_help() {
       pmssm-env cache <dir>
     mount   : add a directory to mount to container while running
       pmssm-env mount <dir>
+    source  : run the commands in the provided file through pmssm-env
+      pmssm-env source .pmssm-envrc
     <other> : run the input command in the container
       pmssm-env <other> [<arguments> ...]
+
 HELP
   return 0
 }
 
 pmssm-env() {
   case "$1" in
-    use|config|help|cache|mount)
+    use|config|help|cache|mount|source)
       __pmssm-env_$1 ${@:2}
       return $?
       ;;
@@ -97,3 +114,8 @@ pmssm-env() {
       ;;
   esac
 }
+
+_default_pmssmenvrc="$(dirname ${BASH_SOURCE[0]})/.pmssmenvrc"
+if [[ -f ${_default_pmssmenvrc} ]]; then
+  pmssm-env source ${_default_pmssmenvrc}
+fi

@@ -1,0 +1,17 @@
+###############################################################################
+# Default Configuration File for pmssm-env Container Environment
+#   This file is "sourced" everytime the environment script is sourced.
+#   i.e. 'source env.sh --> pmssm-env source .pmssmenvrc'
+#
+#   Think of this file like a '.bashrc'. You can put your custom container
+#   configuration directly in this file. 
+#
+#   Each line starting with '#' is ignored. 
+#   White space is ignored.
+#   All other lines are given to the 'ldmx' command.
+#   This file is sourced in the directory that it is in.
+###############################################################################
+
+# Use latest container release by default
+use latest
+

@@ -1,4 +1,5 @@
 README.md
 docs/**
 .git**
-env.sh
+pmssm-env.sh
+.pmssmenvrc
