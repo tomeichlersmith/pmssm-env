@@ -39,12 +39,20 @@ __pmssm-env_config() {
 export PMSSM_ENV_MOUNTS=""
 __pmssm-env_mount() {
   if [[ ! -d $1 ]]; then
-    echo "$1 is not a directory!"
+    echo "ERROR: $1 is not a directory!"
     return 1
   fi
 
   export PMSSM_ENV_MOUNTS="${PMSSM_ENV_MOUNTS}${PMSSM_ENV_MOUNTS:+,}$(cd "$1" && pwd -P)${2:+:}${2}"
   return 0
+}
+
+__pmssm-env_run() {
+  singularity run \
+    ${PMSSM_ENV_MOUNTS:+"-B"} ${PMSSM_ENV_MOUNTS} \
+    docker://tomeichlersmith/pmssm-env:${PMSSM_ENV_TAG} \
+    $@
+  return $?
 }
 
 __pmssm-env_help() {
@@ -75,14 +83,6 @@ __pmssm-env_help() {
       pmssm-env <other> [<arguments> ...]
 HELP
   return 0
-}
-
-__pmssm-env_run() {
-  singularity run \
-    ${PMSSM_ENV_MOUNTS:+"-B"} ${PMSSM_ENV_MOUNTS} \
-    docker://tomeichlersmith/pmssm-env:${PMSSM_ENV_TAG} \
-    $@
-  return $?
 }
 
 pmssm-env() {
