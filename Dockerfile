@@ -40,7 +40,7 @@ RUN mkdir src &&\
       -DCMAKE_CXX_COMPILER=`which g++` \
       -B build \
       -S src \
-    && cmake --build build --target install -- -j &&\
+    && cmake --build build --target install &&\
     rm -rf build src &&\
     ln -s /usr/local/bin/thisroot.sh /etc/profile.d/thisroot.sh
 
